@@ -13,7 +13,10 @@ from ml.model import (
     train_model,
 )
 # load the cencus.csv data
-project_path = "/Users/seanendicott/Documents/Education/WGU/ML-DevOps/Deploying-a-Scalable-ML-Pipeline-with-FastAPI"
+project_path = (
+    "/Users/seanendicott/Documents/Education/WGU/ML-DevOps/"
+    "Deploying-a-Scalable-ML-Pipeline-with-FastAPI"
+)
 data_path = os.path.join(project_path, "data", "census.csv")
 print(data_path)
 data = pd.read_csv(data_path)
@@ -40,7 +43,7 @@ X_train, y_train, encoder, lb = process_data(
     categorical_features=cat_features,
     label="salary",
     training=True
-    )
+)
 
 X_test, y_test, _, _ = process_data(
     test,
@@ -60,14 +63,14 @@ save_model(model, model_path)
 encoder_path = os.path.join(project_path, "model", "encoder.pkl")
 save_model(encoder, encoder_path)
 
-## save model with lb path
+# save model with lb path
 lb_path = os.path.join(project_path, "model", "lb.pkl")
 save_model(lb, lb_path)
 
 # load the model
 model = load_model(
     model_path
-) 
+)
 
 # use the inference function to run the model inferences on the test dataset.
 preds = inference(model, X_test)
@@ -95,4 +98,6 @@ for col in cat_features:
         )
         with open("slice_output.txt", "a") as f:
             print(f"{col}: {slicevalue}, Count: {count:,}", file=f)
-            print(f"Precision: {p:.4f} | Recall: {r:.4f} | F1: {fb:.4f}", file=f)
+            print(
+                f"Precision: {p:.4f} | Recall: {r:.4f} | F1: {fb:.4f}", file=f
+            )

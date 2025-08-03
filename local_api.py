@@ -1,16 +1,12 @@
-import json
-
 import requests
 
-# TODO: send a GET using the URL http://127.0.0.1:8000
+# send a GET using the URL http://127.0.0.1:8000
 r = requests.get("http://127.0.0.1:8000")
 
-# TODO: print the status code
+# print the status code
 print(r.status_code)
-# TODO: print the welcome message
+# print the welcome message
 print(r.json())
-
-
 
 data = {
     "age": 37,

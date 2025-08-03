@@ -1,8 +1,8 @@
-import pytest
 from fastapi.testclient import TestClient
-from main import app  # Import your FastAPI app (adjust import as needed)
+from main import app
 
 client = TestClient(app)
+
 
 def test_root_endpoint():
     """
@@ -11,7 +11,8 @@ def test_root_endpoint():
     response = client.get("/")
     assert response.status_code == 200
     assert "message" in response.json()
-    assert response.json()["message"] == "Welcome to the ML inference API!"
+    assert response.json()["message"] == "Welcome to the income prediction API!"
+
 
 def test_model_inference():
     """
@@ -36,6 +37,7 @@ def test_model_inference():
     response = client.post("/data/", json=data)
     assert response.status_code == 200
     assert "result" in response.json()
+
 
 def test_invalid_data():
     """

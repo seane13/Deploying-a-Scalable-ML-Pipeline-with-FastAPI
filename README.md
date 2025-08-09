@@ -1,29 +1,103 @@
-Working in a command line environment is recommended for ease of use with git and dvc. If on Windows, WSL1 or 2 is recommended.
+Income Prediction API with FastAPI
 
-# Environment Set up (pip or conda)
-* Option 1: use the supplied file `environment.yml` to create a new environment with conda
-* Option 2: use the supplied file `requirements.txt` to create a new environment with pip
-    
-## Repositories
-* Create a directory for the project and initialize git.
-    * As you work on the code, continually commit changes. Trained models you want to use in production must be committed to GitHub.
-* Connect your local git repo to GitHub.
-* Setup GitHub Actions on your repo. You can use one of the pre-made GitHub Actions if at a minimum it runs pytest and flake8 on push and requires both to pass without error.
-    * Make sure you set up the GitHub Action to have the same version of Python as you used in development.
+This project demonstrates a full ML pipeline for predicting income levels (≤50K or >50K) based on census data. The pipeline includes data preprocessing, model training, evaluation on data slices, RESTful API creation, and automated testing with GitHub Actions.
 
-# Data
-* Download census.csv and commit it to dvc.
-* This data is messy, try to open it in pandas and see what you get.
-* To clean it, use your favorite text editor to remove all spaces.
+GitHub Link
+https://github.com/seane13/Deploying-a-Scalable-ML-Pipeline-with-FastAPI/actions/workflows/manual.yml
 
-# Model
-* Using the starter code, write a machine learning model that trains on the clean data and saves the model. Complete any function that has been started.
-* Write unit tests for at least 3 functions in the model code.
-* Write a function that outputs the performance of the model on slices of the data.
-    * Suggestion: for simplicity, the function can just output the performance on slices of just the categorical features.
-* Write a model card using the provided template.
+Project Overview
 
-# API Creation
-*  Create a RESTful API using FastAPI this must implement:
-    * GET on the root giving a welcome message.
-    * POST that does model inference.
+-  Dataset: Census data (downloaded separately)
+-  Model: Random Forest Classifier (or other, depending on your implementation)
+-  API: Built with FastAPI
+-  Tests: Pytest unit tests
+-  CI: GitHub Actions
+-  Packaging: requirements.txt / environment.yml
+---
+
+ Directory Structure
+
+├── data/
+│   └── census.csv            # Raw dataset (tracked via DVC)
+├── model/
+│   ├── model.pkl             # Trained model
+│   ├── encoder.pkl           # OneHotEncoder for categorical features
+│   └── lb.pkl                # LabelBinarizer for labels
+├── ml/
+│   ├── data.py               # Data preprocessing logic
+│   └── model.py              # ML training, inference, slice evaluation
+├── tests/
+│   └── test_ml.py            # Unit tests
+├── main.py                   # FastAPI app
+├── local_api.py              # Script to test the API
+├── slice_output.txt          # Metrics on categorical slices
+├── model_card.md             # Model documentation
+├── requirements.txt          # Pip dependencies
+├── environment.yml           # Conda environment definition
+├── .github/workflows/main.yml  # CI pipeline
+└── README.md
+
+
+---
+
+ Model Performance
+
+Evaluation was performed using precision, recall, and F1-score across different slices of the data.
+- Example (Workclass = Private):
+  Precision: 0.7362
+  Recall: 0.6384
+  F1: 0.6838
+
+Detailed performance across all slices is logged in slice_output.txt.
+---
+
+ API Usage
+
+
+Start the API locally
+
+uvicorn main:app --reload
+
+
+
+Interact using local script
+
+python local_api.py
+
+
+- GET / returns a welcome message
+- POST /data/ accepts JSON data and returns a prediction
+pytest test_ml.py -v
+
+Ensure flake8 passes as well:
+flake8 .
+
+
+
+ Continuous Integration
+
+
+
+This project uses GitHub Actions to enforce code quality:
+
+- Runs pytest and flake8 on every push
+- Python version matches development environment
+
+
+
+
+ License
+
+
+
+MIT License
+
+---
+
+
+
+Acknowledgements
+
+
+
+This project was developed as part of the Udacity Machine Learning DevOps Engineer Nanodegree.

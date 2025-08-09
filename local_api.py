@@ -26,7 +26,7 @@ data = {
 }
 
 # Send the POST request to the /predict endpoint
-r = requests.post("http://127.0.0.1:8000/predict", json=data)
+r = requests.post("http://127.0.0.1:8000/data/", json=data)
 
 # Print the response
 print(r.status_code)

@@ -1,71 +1,45 @@
 # Model Card
 
-For additional information see the Model Card paper: https://arxiv.org/pdf/1810.03993.pdf
+Use this template to document your project's model card. A model card is a structured document that provides essential information about a trained machine learning model, including details about its evaluation metrics, intended uses, limitations, and ethical considerations.
 
 ## Model Details
-This model is a supervised binary classification model trained to predict whether an individual’s income exceeds $50K per year based on census data. It uses a Random Forest Classifier, trained on processed categorical and continuous features. The model is part of a pipeline built with scikit-learn, and is deployed via a FastAPI application.
+- **Model Type**: (e.g., Random Forest Classifier)
+- **Model Version / Date Trained**: (e.g., 2025-08-10)
+- **Framework**: (e.g., scikit-learn, XGBoost)
+- **Model Artifacts**: (e.g., model/model.pkl, model/encoder.pkl)
+- **Training environment**: (e.g., Python 3.10, scikit-learn 1.5)
 
 ## Intended Use
-The model is intended for educational purposes to demonstrate how to:
+Describe the purpose of the model and its expected real-world applications.
 
-- Train and evaluate a binary classification model
-- Handle categorical data preprocessing
-- Compute performance on demographic slices
-- Serve an ML model via a RESTful API
+## Out-of-scope Use
+List applications for which the model is not intended (e.g., high-stakes decision-making).
 
 ## Training Data
-The model was trained on the UCI Adult Income dataset, also known as “Census Income” data. The training set consists of demographic and employment-related features such as:
-
-- Age
-- Workclass
-- Education
-- Occupation
-- Marital Status
-- Race
-- Sex
-- Native Country
-- Hours per week
-- Capital gain/loss
-
-
-Categorical features were one-hot encoded, and the label is binary: >50K or <=50K.
+- **Source**: (e.g., UCI Adult Income dataset)
+- **Features**: (e.g., age, workclass, education)
+- **Data Splitting Method**: (e.g., train/test split, cross-validation)
+- **Preprocessing and Cleaning**
 
 ## Evaluation Data
-The test data is a held-out portion of the original dataset, not seen during training. It reflects similar distributions to the training data and is used to evaluate generalization and subgroup fairness.
+Explain how the evaluation dataset was prepared and how it's different from the training data.
 
 ## Metrics
-The model is evaluated using:
+- Describe the evaluation metrics used (e.g., precision, recall, F1-score, accuracy).
+- Provide overall model performance metrics.
+- Include slice-based evaluation methods if applicable (e.g., by category, gender).
 
-- Precision
-- Recall
-- F1-score
-
-
-Overall Performance:
-
-- Precision: 0.74
-- Recall: 0.66
-- F1-score: 0.69
-
-
-Slice-based Evaluation (selected examples):
-
-- Workclass: Private — F1: 0.6838
-- Education: HS-grad — F1: 0.5114
-- Marital-status: Never-married — F1: 0.5605
-- Sex: Male — F1: 0.6985, Female — F1: 0.5995
-- Race: White — F1: 0.6832, Black — F1: 0.6723
-
-
-See slice_output.txt for full breakdown.
-
-## Ethical Considerations
-- Bias/Fairness: The model shows uneven performance across groups. Certain slices, such as 7th-8th education or Widowed, have low recall and F1-scores. These disparities suggest the model may encode or reinforce societal biases.
-- Privacy: The model is trained on publicly available data. However, if extended to real-world settings, privacy concerns must be addressed.
-- Transparency: This model is fully open, and both code and data are accessible for inspection and replication.
+## Ethical & Fairness Considerations
+Notes about fairness, bias, sensitive features, and any assessments performed.
 
 ## Caveats and Recommendations
-- The model is not suitable for high-stakes decision-making (e.g., hiring, credit).
-- Performance varies across demographic groups. Further work is needed to address fairness.
-- The model is not calibrated for probabilities. Use thresholds cautiously.
-- Consider retraining the model with fairness constraints or techniques like reweighing or adversarial debiasing if intended for sensitive applications.
+Known limitations of the model and any relevant caveats.
+
+## Decision Threshold and Calibration
+Explain how thresholds are set (if applicable) and whether the model was calibrated.
+
+## Reproducibility
+Instructions for reproducing the results (e.g., how to run training, CI requirements).
+
+## Maintenance & Monitoring (Optional)
+Recommendations for model versioning, drift detection, retraining, and monitoring.

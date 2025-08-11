@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
-
+from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
@@ -13,12 +13,20 @@ from ml.model import (
     save_model,
     load_model,
 )
-from train_model import cat_features as CATEGORICAL_FEATURES
 
 LABEL = "salary"
-DATA_PATH = os.getenv("DATA_PATH", "data/census.csv")
 SEED = 42
-
+DATA_PATH = os.getenv("DATA_PATH", "data/census.csv")
+CATEGORICAL_FEATURES = [
+    "workclass",
+    "education",
+    "marital-status",
+    "occupation",
+    "relationship",
+    "race",
+    "sex",
+    "native-country",
+]
 
 def _load_sample_df(n=2000, seed=SEED):
     """Load a small, stratified sample for fast, deterministic tests."""

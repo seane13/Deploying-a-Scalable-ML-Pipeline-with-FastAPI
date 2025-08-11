@@ -1,7 +1,6 @@
 import os
 import numpy as np
 import pandas as pd
-from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
@@ -27,6 +26,7 @@ CATEGORICAL_FEATURES = [
     "sex",
     "native-country",
 ]
+
 
 def _load_sample_df(n=2000, seed=SEED):
     """Load a small, stratified sample for fast, deterministic tests."""
